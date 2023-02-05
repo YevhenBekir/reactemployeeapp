@@ -1,33 +1,72 @@
+import {Component} from 'react';
 import './employee-list-item.css';
 
-const EmployeeListItem = ({name, salary, increase}) => {
+class EmployeeListItem extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            increase: false,
+            uppSalary: false
+        };
+    }
 
-    let classListName = "list-group-item d-flex justify-content-between";
-    if (increase) {
-        classListName += ' increase';
+    // setIncrease = () => {
+    //     this.setState(state => ({
+    //         increase: state.increase = true
+    //     }))
+    //     if(this.state.increase){
+    //         this.setState(state => ({
+    //             increase: state.increase = false
+    //         }))
+    //     }
+    // }
+
+    setIncrease = () => {
+        this.setState(({increase}) => ({
+            increase: !increase
+        }))
     };
 
-    return (
-        <li className={classListName}>
-            <span className="list-group-item-label">{name}</span>
-            <input type="text" className="list-group-item-input" defaultValue={salary + '$'} />
+    setUppSalary = () => {
+        this.setState(({uppSalary}) => ({
+            uppSalary: !uppSalary
+        }));
+    };
 
-            <div className="d-flex justify-content-center align-items-center">
-                <button
-                type="button"
-                className="btn-cookie btn-sm">
-                    <i className="fas fa-cookie"></i>
-                </button>
+    render(){
+        const {name, salary} = this.props;
+        const {increase, uppSalary} = this.state;
 
-                <button
-                type="button"
-                className="btn-trash btn-sm">
-                    <i className="fas fa-trash"></i>
-                </button>
-                <i className="fas fa-star"></i>
-            </div>
-        </li>
-    )
+        let classListName = "list-group-item d-flex justify-content-between";
+        if (increase) {
+            classListName += ' increase';
+        };
+        if(uppSalary){
+            classListName += ' like';
+        }
+        return (
+            <li className={classListName}>
+                <span className="list-group-item-label" onClick={this.setUppSalary}>{name}</span>
+                <input type="text" className="list-group-item-input" defaultValue={salary + '$'} />
+    
+                <div className="d-flex justify-content-center align-items-center">
+                    <button
+                    type="button"
+                    className="btn-cookie btn-sm"
+                    onClick={this.setIncrease}>
+                        <i className="fas fa-cookie"></i>
+                    </button>
+    
+                    <button
+                    type="button"
+                    className="btn-trash btn-sm">
+                        <i className="fas fa-trash"></i>
+                    </button>
+                    <i className="fas fa-star"></i>
+                </div>
+            </li>
+        );
+    };
 };
 
 export default EmployeeListItem;

@@ -3,14 +3,14 @@ import './employees-list.css';
 
 const EmployeesList = ({data}) => {
 
-    const employeesdata = data.map(item => {
+    const employeesData = data.map(item => {
         const {id, ...itemProps} = item;
         return <EmployeeListItem key={id} {...itemProps}/>;
     });
 
     return(
         <ul className="app-list list-group">
-            {employeesdata}
+            {employeesData}
         </ul>
     )
 }
