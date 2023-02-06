@@ -1,4 +1,5 @@
 import {Component} from 'react';
+
 import './employee-list-item.css';
 
 class EmployeeListItem extends Component{
@@ -34,7 +35,7 @@ class EmployeeListItem extends Component{
     };
 
     render(){
-        const {name, salary} = this.props;
+        const {name, salary, onDelete} = this.props;
         const {increase, uppSalary} = this.state;
 
         let classListName = "list-group-item d-flex justify-content-between";
@@ -59,7 +60,8 @@ class EmployeeListItem extends Component{
     
                     <button
                     type="button"
-                    className="btn-trash btn-sm">
+                    className="btn-trash btn-sm"
+                    onClick={onDelete}>
                         <i className="fas fa-trash"></i>
                     </button>
                     <i className="fas fa-star"></i>
