@@ -1,60 +1,27 @@
-import {Component} from 'react';
-
 import './employee-list-item.css';
 
-class EmployeeListItem extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            increase: false,
-            uppSalary: false
-        };
-    }
-
-    // setIncrease = () => {
-    //     this.setState(state => ({
-    //         increase: state.increase = true
-    //     }))
-    //     if(this.state.increase){
-    //         this.setState(state => ({
-    //             increase: state.increase = false
-    //         }))
-    //     }
-    // }
-
-    setIncrease = () => {
-        this.setState(({increase}) => ({
-            increase: !increase
-        }))
-    };
-
-    setUppSalary = () => {
-        this.setState(({uppSalary}) => ({
-            uppSalary: !uppSalary
-        }));
-    };
-
-    render(){
-        const {name, salary, onDelete} = this.props;
-        const {increase, uppSalary} = this.state;
+const EmployeeListItem = (props) => {
+        const {name, salary, onDelete, increase, rise, onToggleProp} = props;
 
         let classListName = "list-group-item d-flex justify-content-between";
-        if (increase) {
+        if(increase){
             classListName += ' increase';
-        };
-        if(uppSalary){
+        }
+        if(rise){
             classListName += ' like';
         }
+
         return (
             <li className={classListName}>
-                <span className="list-group-item-label" onClick={this.setUppSalary}>{name}</span>
+                <span className="list-group-item-label" onClick={onToggleProp} data-toggle="rise">{name}</span>
                 <input type="text" className="list-group-item-input" defaultValue={salary + '$'} />
     
                 <div className="d-flex justify-content-center align-items-center">
                     <button
                     type="button"
                     className="btn-cookie btn-sm"
-                    onClick={this.setIncrease}>
+                    onClick={onToggleProp}
+                    data-toggle="increase">
                         <i className="fas fa-cookie"></i>
                     </button>
     
@@ -68,7 +35,6 @@ class EmployeeListItem extends Component{
                 </div>
             </li>
         );
-    };
 };
 
 export default EmployeeListItem;
