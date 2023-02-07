@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import './employees-add-form.css';
 
-class EmployeesAddForm extends Component {  
+class EmployeesAddForm extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -16,13 +16,24 @@ class EmployeesAddForm extends Component {
         })
     }
 
+    onSetNewEmployee = (e, name, salary) => {
+        e.preventDefault();
+        const {onAdd} = this.props;
+        onAdd(name, salary);
+        this.setState({
+            employeeName: '',
+            employeeSalary: ''
+        })
+    }
+
     render(){
         const {employeeName, employeeSalary} = this.state;
         return(
             <div className="app-add-form">
                 <h3>Додайте нового працівника:</h3>
                 <form 
-                className="add-form d-flex">
+                className="add-form d-flex"
+                onSubmit={(e) => this.onSetNewEmployee(e, employeeName, employeeSalary)}>
                     <input type="text"
                     className="form-control new-post-label"
                     onChange={this.onSetEmployeeData}
