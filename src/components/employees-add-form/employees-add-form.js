@@ -40,7 +40,7 @@ class EmployeesAddForm extends Component {
                     className="form-control new-post-label"
                     onChange={this.onSetEmployeeData}
                     name="employeeName"
-                    value={employeeName}
+                    value={employeeName.toLowerCase()}
                     placeholder="Ім'я працівника:" />
 
                     <input type="number"
