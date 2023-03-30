@@ -16,7 +16,8 @@ class App extends Component {
                 {name: 'Василь Сурмач', salary: 800, increase: false, rise: false, id: 1},
                 {name: 'Анатолій Сагайдачний', salary: 3000, increase: false, rise: false, id: 2},
                 {name: 'Веніамін Кличко', salary: 5000, increase: false, rise: false, id: 3}
-            ]
+            ],
+            text: ''
         };
         this.empId = 4;
     }
@@ -70,9 +71,21 @@ class App extends Component {
         return countRiseEmployee.length;
     }
 
-    render(){
+    findEmployee = (data, index) => {
+        if(index.length === 0){
+            return data;
+        }
+        return data.filter(item => {
+            return item.name.indexOf(index) > -1
+        });
+    }
+    onUpdateFind = (text) => {
+        this.setState({text})
+    }
 
-        const {arrData} = this.state;
+    render(){
+        const {arrData, text} = this.state;
+        const visibleData = this.findEmployee(arrData, text);
         
         return(
             <div className="app">
@@ -82,12 +95,12 @@ class App extends Component {
                 allEmployeesCount={this.state.arrData.length}/>
     
                 <div className="search-panel">
-                    {SearchPanel()}
+                    <SearchPanel onUpdateFind={this.onUpdateFind}/>
                     {AppFilter()}
                 </div>
     
                 <EmployeesList
-                data={arrData}
+                data={visibleData}
                 onDelete={this.onDeleteEmployee}
                 onToggleProp={this.onToggleProp} />
                 <EmployeesAddForm onAdd={this.onAddEmployee}/>
